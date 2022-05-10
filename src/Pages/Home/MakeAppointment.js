@@ -3,9 +3,9 @@ import doctor from '../../assets/images/doctor-small.png';
 import appointment from '../../assets/images/appointment.png';
 import PrimaryButton from '../Shared/PrimaryButton';
 
-const AppointmentBanner = () => {
+const MakeAppointment = () => {
     return (
-        <section className='flex bg-cover bg-no-repeat bg-center items-center justify-center px-8 my-32 py-8 lg:py-0 -mx-12' style={{
+        <section className='flex bg-cover bg-no-repeat bg-center items-center justify-center px-12 md:px-20 mt-40 mb-24 py-8 lg:py-0 -mx-12' style={{
             background: `url(${appointment})`
         }}>
             <div className='flex-1 hidden lg:block'>
@@ -21,4 +21,4 @@ const AppointmentBanner = () => {
     );
 };
 
-export default AppointmentBanner;
+export default MakeAppointment;

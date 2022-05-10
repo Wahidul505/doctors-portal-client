@@ -1,18 +1,24 @@
 import React from 'react';
-import AppointmentBanner from './AppointmentBanner';
+import MakeAppointment from './MakeAppointment';
 import Banner from './Banner';
 import Info from './Info';
+import Testimonial from './Testimonial';
 import Services from './Services';
 import TreatmentBanner from './TreatmentBanner';
+import ContactForm from './ContactForm';
+import Footer from '../Shared/Footer';
 
 const Home = () => {
     return (
-        <div className='px-12'>
+        <div>
             <Banner />
             <Info />
             <Services />
             <TreatmentBanner />
-            <AppointmentBanner />
+            <MakeAppointment />
+            <Testimonial />
+            <ContactForm />
+            <Footer />
         </div>
     );
 };

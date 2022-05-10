@@ -11,7 +11,7 @@ const Info = () => {
         { id: 3, title: 'Contact Us Now', description: '01766633344', icon: phone, colorFrom: 'from-primary', colorTo: 'to-secondary' },
     ]
     return (
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-24'>
             {
                 infos.map(info => <InfoCard
                     key={info.id}
