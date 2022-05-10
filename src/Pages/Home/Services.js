@@ -11,7 +11,7 @@ const Services = () => {
         { id: 3, icon: whitening, title: 'Teeth Whitening', description: 'Make Your teeth White and Strong' }
     ]
     return (
-        <div className='my-40 px-8'>
+        <div className='my-32'>
         <div className='text-center mb-8'>
             <p className='text-secondary text-lg font-semibold uppercase mb-1'>Our Services</p>
             <p className='text-gray-700 text-3xl'>Services We Provide</p>
