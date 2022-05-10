@@ -4,12 +4,12 @@ import PrimaryButton from '../Shared/PrimaryButton';
 
 const TreatmentBanner = () => {
     return (
-        <div class="px-8 -mt-8">
-  <div class="flex flex-col lg:flex-row gap-16">
-    <img src={treatment} class="rounded-lg shadow-2xl w-1/3" alt='' />
+        <div className="md:px-8 -mt-8">
+  <div className="flex flex-col lg:flex-row gap-16">
+    <img src={treatment} className="rounded-lg shadow-2xl w-full md:w-1/3" alt='' />
     <div>
-      <h1 class="text-5xl font-bold text-gray-700">Exceptional Dental Care, on Your Term</h1>
-      <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      <h1 className="text-5xl font-bold text-gray-700">Exceptional Dental Care, on Your Term</h1>
+      <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
       <PrimaryButton>Get Started</PrimaryButton>
     </div>
   </div>
