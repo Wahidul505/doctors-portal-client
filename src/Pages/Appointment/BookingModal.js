@@ -2,13 +2,31 @@ import React from 'react';
 import { format } from 'date-fns';
 
 const BookingModal = ({ bookingTreatment, setBookingTreatment, date }) => {
-    const { _id, name, slots } = bookingTreatment;
+    const { name, slots } = bookingTreatment;
     const handleBooking = e => {
         e.preventDefault();
         const slot = e.target.timeSlot.value;
         const date = e.target.date.value;
+        const personName = e.target.personName.value;
+        const phone = e.target.phone.value;
         const email = e.target.email.value;
-        console.log(_id, slot, date, name, email);
+        const bookingInfo = {
+            name,
+            slot,
+            date,
+            personName,
+            phone,
+            email,
+        }
+        fetch('http://localhost:5000/bookingTreatment', {
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(bookingInfo)
+        }).then(res => res.json()).then(data => console.log(data));
+
+        // only for now, later will handle to close the modal in another way.
         setBookingTreatment(null);
     }
     return (
@@ -27,7 +45,7 @@ const BookingModal = ({ bookingTreatment, setBookingTreatment, date }) => {
                                 </option>)
                             }
                         </select>
-                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="name" id="name" placeholder='Full Name' required />
+                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="personName" id="name" placeholder='Full Name' required />
                         <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="phone" id="phone" placeholder='Phone Number' required />
                         <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="email" id="email" placeholder='Email' required />
                         <input className='uppercase btn btn-accent text-white text-lg font-normal mt-1' type="submit" value="Submit" />

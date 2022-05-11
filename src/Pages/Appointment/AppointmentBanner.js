@@ -19,7 +19,7 @@ const AppointmentBanner = ({ date, setDate }) => {
                         fromMonth={defaultMonth}
                     />
                 </div>
-                <img src={chair} className="lg:max-w-2xl md:w-1/2 rounded-lg shadow-2xl" alt='' />
+                <img src={chair} className="lg:max-w-xl rounded-lg shadow-2xl" alt='' />
             </div>
         </div>
     );
