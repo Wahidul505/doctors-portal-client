@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Treatment = ({ treatment, setBookedTreatment }) => {
+const Treatment = ({ treatment, setBookingTreatment }) => {
     const { name, slots } = treatment;
     return (
-        <div class="card lg:mx-w-lg bg-base-100 shadow-lg">
-            <div class="card-body items-center text-center">
-                <h2 class="card-title text-secondary">{name}</h2>
+        <div className="card lg:mx-w-lg bg-base-100 shadow-lg">
+            <div className="card-body items-center text-center">
+                <h2 className="card-title text-secondary">{name}</h2>
                 <p>
                     {slots.length ?
                         <span>{slots[0]}</span>
@@ -14,12 +14,12 @@ const Treatment = ({ treatment, setBookedTreatment }) => {
                     }
                 </p>
                 <p>{slots.length} {slots.length > 1 ? 'spaces' : 'space'} Available</p>
-                <div class="card-actions mt-3">
+                <div className="card-actions mt-3">
                     <label 
-                    onClick={()=>setBookedTreatment(treatment)}
+                    onClick={()=>setBookingTreatment(treatment)}
                     disabled={slots.length === 0} 
-                    for="booking-modal" 
-                    class="btn modal-button btn-primary">Book Appointment</label>
+                    htmlFor="booking-modal" 
+                    className="btn modal-button btn-primary">Book Appointment</label>
                 </div>
             </div>
         </div>

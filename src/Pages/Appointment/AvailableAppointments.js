@@ -5,13 +5,12 @@ import Treatment from './Treatment';
 
 const AvailableAppointments = ({ date }) => {
     const [treatments, setTreatments] = useState([]);
-    const [bookedTreatment, setBookedTreatment] = useState(null);
+    const [bookingTreatment, setBookingTreatment] = useState(null);
     useEffect(() => {
         fetch('treatments.json')
             .then(res => res.json())
             .then(data => setTreatments(data));
     }, []);
-    console.log(treatments);
     return (
         <div>
             <p className='text-xl text-secondary text-center'>Available Appointments on {format(date, 'PP')}</p>
@@ -20,11 +19,15 @@ const AvailableAppointments = ({ date }) => {
                     treatments.map(treatment => <Treatment
                         key={treatment._id}
                         treatment={treatment}
-                        setBookedTreatment={setBookedTreatment}
+                        setBookingTreatment={setBookingTreatment}
                     />)
                 }
             </div>
-            <BookingModal bookedTreatment={bookedTreatment}/>
+            {bookingTreatment && <BookingModal
+                bookingTreatment={bookingTreatment}
+                date={date}
+                setBookingTreatment={setBookingTreatment}
+            />}
         </div>
     );
 };

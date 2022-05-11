@@ -8,7 +8,7 @@ const AppointmentBanner = ({ date, setDate }) => {
     const defaultMonth = new Date();
     return (
         <div className="bg-cover bg-no-repeat bg-center mb-28 md:px-8 py-8" style={{ backgroundImage: `url(${bg})` }}>
-            <div className="flex flex-col md:flex-row justify-around items-start">
+            <div className="flex flex-col lg:flex-row justify-around items-center gap-4">
                 <div>
                     <DayPicker
                         className='bg-white rounded p-4 shadow-lg h-96 w-full'
