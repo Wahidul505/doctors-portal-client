@@ -3,10 +3,9 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
-import LoadingSpinner from './LoadingSpinner';
 
 const NavBar = () => {
-    const [user, loading] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const menuItems = <>
         <li><Link to='/home'>Home</Link></li>
         <li><Link to='/appointment'>Appointment</Link></li>
@@ -17,9 +16,6 @@ const NavBar = () => {
             <button className='bg-secondary bg-opacity-30' onClick={() => signOut(auth)}>SignOut</button>
             : <Link to='/login'>Login</Link>}</li>
     </>
-    if (loading) {
-        return <LoadingSpinner />
-    }
     return (
         <div className="navbar bg-base-100 px-8 mb-12 md:mb-24">
             <div className="navbar-start">
