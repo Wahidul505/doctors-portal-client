@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import auth from '../../firebase.init';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import LoadingSpinner from '../Shared/LoadingSpinner';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import SocialLogin from './SocialLogin';
 
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -14,22 +15,32 @@ const Signup = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
     const navigate = useNavigate();
-    let errorMessage;
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const [errorMessage, setErrorMessage] = useState('');
 
-    if (user || gUser) {
-        console.log(user || gUser);
-    };
+    useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true });
+        };
 
-    if (loading || gLoading || updating) {
+        if (error || updateError) {
+            if (error?.message?.includes('email-already-in-use')) {
+                setErrorMessage('Email Already Exists');
+            }
+            else {
+                setErrorMessage('Something went Wrong');
+            }
+        };
+    }, [user, navigate, from, error, updateError])
+
+    if (loading || updating) {
         return <LoadingSpinner />
     }
 
-    if (error || gError || updateError) {
-        errorMessage = <p className='text-rose-500 text-sm'>{error?.message || gError?.message || updateError?.message}</p>
-    };
+    
 
 
 
@@ -37,7 +48,6 @@ const Signup = () => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
-        navigate('/appointment');
     };
 
     return (
@@ -115,7 +125,7 @@ const Signup = () => {
                     {errors.password?.type === 'pattern' && <small className='text-red-500'>{errors.password.message}</small>}
 
                     {/* error message  */}
-                    {errorMessage}
+                    {errorMessage && <p className='text-rose-500 text-sm'>{errorMessage}</p>}
 
                     {/* submit button  */}
                     <input className='btn btn-accent text-white text-lg font-normal mt-6' type="submit" value='Sign Up' />
@@ -125,11 +135,8 @@ const Signup = () => {
                 </form>
 
                 {/* google login  */}
-                <div className="divider my-6">OR</div>
-                <button
-                    onClick={() => signInWithGoogle()}
-                    className="btn btn-outline uppercase w-full"
-                >Continue with Google</button>
+                <SocialLogin />
+
             </div>
         </div>
     );

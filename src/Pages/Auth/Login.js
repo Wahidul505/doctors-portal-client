@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import auth from '../../firebase.init';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import LoadingSpinner from '../Shared/LoadingSpinner';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import SocialLogin from './SocialLogin';
 
 
 const Login = () => {
@@ -14,28 +15,33 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
-    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-
-    let errorMessage;
+    const [errorMessage, setErrorMessage] = useState();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
-        if (user || gUser) {
+        if (user) {
             navigate(from, { replace: true });
         };
-    }, [user, gUser, navigate, from]);
 
-    if (loading || gLoading) {
+        if (error) {
+            console.log(error?.message);
+            if (error?.message?.includes('wrong-password')) {
+                setErrorMessage('Wrong Password')
+            }
+            else if (error?.message?.includes('user-not-found')) {
+                setErrorMessage('Invalid Email Address');
+            }
+            else {
+                setErrorMessage('Something Went Wrong');
+            }
+        }
+    }, [user, navigate, from, error]);
+
+    if (loading) {
         return <LoadingSpinner />
     }
-
-    if (error || gError) {
-        errorMessage = <p className='text-rose-500 text-sm'>{error?.message || gError?.message}</p>
-    };
-
-
 
     const onSubmit = data => {
         console.log(data);
@@ -97,7 +103,7 @@ const Login = () => {
                     {errors.password?.type === 'pattern' && <small className='text-red-500'>{errors.password.message}</small>}
 
                     {/* error message  */}
-                    {errorMessage}
+                    {errorMessage && <p className='text-rose-500 text-sm'>{errorMessage}</p>}
 
                     {/* submit button  */}
                     <input className='btn btn-accent text-white text-lg font-normal mt-6' type="submit" value='Login' />
@@ -107,11 +113,7 @@ const Login = () => {
                 </form>
 
                 {/* google login  */}
-                <div className="divider my-6">OR</div>
-                <button
-                    onClick={() => signInWithGoogle()}
-                    className="btn btn-outline uppercase w-full"
-                >Continue with Google</button>
+                <SocialLogin />
             </div>
         </div>
     );

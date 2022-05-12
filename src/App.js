@@ -7,10 +7,19 @@ import Login from './Pages/Auth/Login';
 import NavBar from './Pages/Shared/NavBar';
 import Signup from './Pages/Auth/Signup';
 import RequireAuth from './Pages/Auth/RequireAuth';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <div className='max-w-7xl	mx-auto px-8 md:px-12'>
+      
+      {/* toaster to show toast  */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+
+      {/* main components  */}
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
