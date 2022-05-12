@@ -1,7 +1,10 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const BookingModal = ({ bookingTreatment, setBookingTreatment, date }) => {
+    const [user] = useAuthState(auth);
     const { name, slots } = bookingTreatment;
     const handleBooking = e => {
         e.preventDefault();
@@ -40,14 +43,15 @@ const BookingModal = ({ bookingTreatment, setBookingTreatment, date }) => {
                         <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="date" id="date" value={format(date, 'PP')} disabled />
                         <select className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' name="timeSlot" id="timeSlot">
                             {
-                                slots.map(slot => <option
+                                slots.map((slot, index) => <option
+                                    key={index}
                                     value={slot}>{slot}
                                 </option>)
                             }
                         </select>
-                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="personName" id="name" placeholder='Full Name' required />
+                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="personName" id="name" disabled value={user?.displayName || ''} required />
+                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="email" id="email" disabled value={user?.email || ''} required />
                         <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="phone" id="phone" placeholder='Phone Number' required />
-                        <input className='p-2 text-lg focus:outline-none rounded-lg bg-gray-300 bg-opacity-70' type="text" name="email" id="email" placeholder='Email' required />
                         <input className='uppercase btn btn-accent text-white text-lg font-normal mt-1' type="submit" value="Submit" />
                     </form>
                 </div>
