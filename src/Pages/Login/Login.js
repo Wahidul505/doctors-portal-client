@@ -1,18 +1,41 @@
 import React from 'react';
 import auth from '../../firebase.init';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
+import LoadingSpinner from '../Shared/LoadingSpinner';
 
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    if (user) {
-        console.log(user);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+    let errorMessage;
+
+    if (gUser) {
+        console.log(gUser);
     };
+
+    if (loading || gLoading) {
+        return <LoadingSpinner />
+    }
+
+    if (error || gError) {
+        errorMessage = <p className='text-rose-500 text-sm'>{error?.message || gError?.message}</p>
+    };
+
+
+
     const onSubmit = data => {
         console.log(data);
-    }
+        signInWithEmailAndPassword(data.email, data.password);
+    };
+
     return (
         <div className='h-screen flex justify-center items-center -mt-20'>
             <div className='w-11/12 md:w-1/2 lg:w-2/5 p-4 shadow-xl rounded-lg'>
@@ -66,6 +89,9 @@ const Login = () => {
                     />
                     {errors.password?.type === 'required' && <small className='text-red-500'>{errors.password.message}</small>}
                     {errors.password?.type === 'pattern' && <small className='text-red-500'>{errors.password.message}</small>}
+
+                    {/* error message  */}
+                    {errorMessage}
 
                     {/* submit button  */}
                     <input className='btn btn-accent text-white text-lg font-normal mt-6' type="submit" value='Login' />
