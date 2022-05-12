@@ -3,8 +3,9 @@ import './App.css';
 import About from './Pages/About/About';
 import Appointment from './Pages/Appointment/Appointment';
 import Home from './Pages/Home/Home';
-import Login from './Pages/Login/Login';
+import Login from './Pages/Auth/Login';
 import NavBar from './Pages/Shared/NavBar';
+import Signup from './Pages/Auth/Signup';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/appointment' element={<Appointment />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </div>
   );

@@ -3,6 +3,7 @@ import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import LoadingSpinner from '../Shared/LoadingSpinner';
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -17,7 +18,7 @@ const Login = () => {
 
     let errorMessage;
 
-    if (gUser) {
+    if (user || gUser) {
         console.log(gUser);
     };
 
@@ -95,6 +96,9 @@ const Login = () => {
 
                     {/* submit button  */}
                     <input className='btn btn-accent text-white text-lg font-normal mt-6' type="submit" value='Login' />
+
+                    {/* sign up Link  */}
+                    <p className='text-center mt-2'><small>New to Doctors Portal? <Link className='text-secondary' to='/signup'>Create new Account</Link></small></p>
                 </form>
 
                 {/* google login  */}
