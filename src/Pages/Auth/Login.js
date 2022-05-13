@@ -8,18 +8,24 @@ import SocialLogin from './SocialLogin';
 
 
 const Login = () => {
+    // hook from 'react hook form' 
     const { register, formState: { errors }, handleSubmit } = useForm();
+    // hook for login 
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+
+        // error message to display in UI 
     const [errorMessage, setErrorMessage] = useState();
+    // navigate, location and from to redirect to the previous page after login 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
+    // redirect the user and handling some error and set the error in errorMessage 
     useEffect(() => {
         if (user) {
             navigate(from, { replace: true });
@@ -39,10 +45,12 @@ const Login = () => {
         }
     }, [user, navigate, from, error]);
 
+    // displaying loading spinner compo 
     if (loading) {
         return <LoadingSpinner />
     }
 
+    // login handler 
     const onSubmit = data => {
         console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
@@ -99,6 +107,8 @@ const Login = () => {
                         }
                         )}
                     />
+                    {/* password reset Link  */}
+                        <small><Link to='/resetPassword'>Forgot Password?</Link></small>
                     {errors.password?.type === 'required' && <small className='text-red-500'>{errors.password.message}</small>}
                     {errors.password?.type === 'pattern' && <small className='text-red-500'>{errors.password.message}</small>}
 

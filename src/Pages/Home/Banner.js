@@ -12,7 +12,7 @@ const Banner = () => {
                     <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     <PrimaryButton>Get Started</PrimaryButton>
                 </div>
-                <img src={chair} className="lg:max-w-2xl md:w-1/2 rounded-lg shadow-2xl" alt='' />
+                <img src={chair} className="lg:max-w-2xl md:w-1/2 rounded-lg shadow-2xl shrink-0" alt='' />
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import LoadingSpinner from '../Shared/LoadingSpinner';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -13,7 +14,7 @@ const Signup = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
@@ -23,6 +24,8 @@ const Signup = () => {
 
     useEffect(() => {
         if (user) {
+            toast.success('Account Created', { id: 'signupSuccess' });
+            toast.success('Email Verification Sent', { id: 'verificationSuccess' });
             navigate(from, { replace: true });
         };
 
@@ -40,7 +43,7 @@ const Signup = () => {
         return <LoadingSpinner />
     }
 
-    
+
 
 
 

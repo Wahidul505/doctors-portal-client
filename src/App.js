@@ -8,11 +8,12 @@ import NavBar from './Pages/Shared/NavBar';
 import Signup from './Pages/Auth/Signup';
 import RequireAuth from './Pages/Auth/RequireAuth';
 import { Toaster } from 'react-hot-toast';
+import ResetPassword from './Pages/Auth/ResetPassword';
 
 function App() {
   return (
     <div className='max-w-7xl	mx-auto px-8 md:px-12'>
-      
+
       {/* toaster to show toast  */}
       <Toaster
         position="top-center"
@@ -32,6 +33,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/resetPassword' element={<ResetPassword />} />
       </Routes>
     </div>
   );
