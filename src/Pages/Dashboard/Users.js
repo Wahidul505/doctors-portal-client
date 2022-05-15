@@ -4,7 +4,7 @@ import LoadingSpinner from '../Shared/LoadingSpinner';
 import UserRow from './UserRow';
 
 const Users = () => {
-    const { data: users, isLoading } = useQuery('users', () => fetch('http://localhost:5000/user').then(res => res.json()))
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/user').then(res => res.json()))
     if (isLoading) {
         return <LoadingSpinner />
     }
@@ -25,6 +25,7 @@ const Users = () => {
                             key={user._id}
                             user={user}
                             index={index}
+                            refetch={refetch}
                         />)
                     }
                 </tbody>
