@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import LoadingSpinner from '../Shared/LoadingSpinner';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
+import toast from 'react-hot-toast';
+import useToken from '../../hooks/useToken';
 
 
 const Login = () => {
@@ -18,7 +20,10 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-        // error message to display in UI 
+    // getting the token after user is logged in 
+    const [token] = useToken(user);
+
+    // error message to display in UI 
     const [errorMessage, setErrorMessage] = useState();
     // navigate, location and from to redirect to the previous page after login 
     const navigate = useNavigate();
@@ -27,7 +32,8 @@ const Login = () => {
 
     // redirect the user and handling some error and set the error in errorMessage 
     useEffect(() => {
-        if (user) {
+        if (token) {
+            toast.success('Logged In', { id: 'loginSuccess' });
             navigate(from, { replace: true });
         };
 
@@ -43,7 +49,7 @@ const Login = () => {
                 setErrorMessage('Something Went Wrong');
             }
         }
-    }, [user, navigate, from, error]);
+    }, [token, navigate, from, error]);
 
     // displaying loading spinner compo 
     if (loading) {
@@ -108,7 +114,7 @@ const Login = () => {
                         )}
                     />
                     {/* password reset Link  */}
-                        <small><Link to='/resetPassword'>Forgot Password?</Link></small>
+                    <small><Link to='/resetPassword'>Forgot Password?</Link></small>
                     {errors.password?.type === 'required' && <small className='text-red-500'>{errors.password.message}</small>}
                     {errors.password?.type === 'pattern' && <small className='text-red-500'>{errors.password.message}</small>}
 

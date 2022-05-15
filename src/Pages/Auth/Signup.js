@@ -6,6 +6,7 @@ import LoadingSpinner from '../Shared/LoadingSpinner';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import toast from 'react-hot-toast';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -17,13 +18,15 @@ const Signup = () => {
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
+    const [token] = useToken(user);
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        if (user) {
+        if (token) {
             toast.success('Account Created', { id: 'signupSuccess' });
             toast.success('Email Verification Sent', { id: 'verificationSuccess' });
             navigate(from, { replace: true });
@@ -37,16 +40,13 @@ const Signup = () => {
                 setErrorMessage('Something went Wrong');
             }
         };
-    }, [user, navigate, from, error, updateError])
+    }, [token, navigate, from, error, updateError])
 
     if (loading || updating) {
         return <LoadingSpinner />
     }
 
-
-
-
-
+    // handling creating user 
     const onSubmit = async data => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);

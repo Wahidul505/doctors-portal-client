@@ -9,16 +9,14 @@ import Signup from './Pages/Auth/Signup';
 import RequireAuth from './Pages/Auth/RequireAuth';
 import { Toaster } from 'react-hot-toast';
 import ResetPassword from './Pages/Auth/ResetPassword';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import MyAppointment from './Pages/Dashboard/MyAppointment';
+import MyReview from './Pages/Dashboard/MyReview';
+import Users from './Pages/Dashboard/Users';
 
 function App() {
   return (
     <div className='max-w-7xl	mx-auto px-8 md:px-12'>
-
-      {/* toaster to show toast  */}
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-      />
 
       {/* main components  */}
       <NavBar />
@@ -30,11 +28,26 @@ function App() {
             <Appointment />
           </RequireAuth>
         } />
+        <Route path='/dashboard' element={
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
+        } >
+          <Route index element={<MyAppointment />} />
+          <Route path='review' element={<MyReview />} />
+          <Route path='users' element={<Users />} />
+        </Route>
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/resetPassword' element={<ResetPassword />} />
       </Routes>
+
+      {/* toaster to show toast  */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
     </div>
   );
 }

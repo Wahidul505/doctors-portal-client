@@ -1,19 +1,26 @@
 import { signOut } from 'firebase/auth';
+import { BsCaretLeftFill } from 'react-icons/bs';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const NavBar = () => {
     const [user] = useAuthState(auth);
+    const { pathname } = useLocation();
+    const handleSignOut = () => {
+        signOut(auth);
+        localStorage.removeItem('accessToken');
+    }
     const menuItems = <>
         <li><Link to='/home'>Home</Link></li>
         <li><Link to='/appointment'>Appointment</Link></li>
         <li><Link to='/reviews'>Reviews</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
+        {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
         <li>{user ?
-            <button className='bg-secondary bg-opacity-30' onClick={() => signOut(auth)}>SignOut</button>
+            <button className='bg-secondary bg-opacity-30' onClick={handleSignOut}>SignOut</button>
             : <Link to='/login'>Login</Link>}</li>
     </>
     return (
@@ -34,6 +41,13 @@ const NavBar = () => {
                     {menuItems}
                 </ul>
             </div>
+            {
+                pathname.includes('/dashboard') && <div className="navbar-end lg:hidden">
+                    <label tabIndex="1" for="my-drawer-2" className="btn btn-ghost lg:hidden">
+                        <BsCaretLeftFill className='text-2xl text-accent' />
+                    </label>
+                </div>
+            }
         </div>
     );
 };
