@@ -37,7 +37,7 @@ const BookingModal = ({ bookingTreatment, setBookingTreatment, date, refetch }) 
                 toast.error(`Already have an Appointment on ${data?.booking?.date} at ${data?.booking?.slot}`, { id: 'bookedError', duration: '400' });
             }
             refetch();
-            // only for now, later will handle to close the modal in another way.
+            // setting the bookingTreatment to null to close the modal 
             setBookingTreatment(null);
         })
 
