@@ -43,7 +43,7 @@ const NavBar = () => {
             </div>
             {
                 pathname.includes('/dashboard') && <div className="navbar-end lg:hidden">
-                    <label tabIndex="1" for="my-drawer-2" className="btn btn-ghost lg:hidden">
+                    <label tabIndex="1" htmlFor="my-drawer-2" className="btn btn-ghost lg:hidden">
                         <BsCaretLeftFill className='text-2xl text-accent' />
                     </label>
                 </div>

@@ -8,7 +8,7 @@ import Treatment from './Treatment';
 const AvailableAppointments = ({ date }) => {
     const [bookingTreatment, setBookingTreatment] = useState(null);
     const formattedDate = format(date, 'PP');
-    const { data: treatments, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res => res.json()));
+    const { data: treatments, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`https://boiling-badlands-47206.herokuapp.com/available?date=${formattedDate}`).then(res => res.json()));
 
     if (isLoading) {
         return <LoadingSpinner />

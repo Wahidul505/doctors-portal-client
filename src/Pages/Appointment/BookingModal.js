@@ -22,14 +22,13 @@ const BookingModal = ({ bookingTreatment, setBookingTreatment, date, refetch }) 
             phone
         }
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://boiling-badlands-47206.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(booking)
         }).then(res => res.json()).then(data => {
-            console.log(date)
             if (data.success) {
                 toast.success(`Appointment booked on ${formattedDate} at ${slot}`, { id: 'bookedSuccess', duration: '400' });
             }

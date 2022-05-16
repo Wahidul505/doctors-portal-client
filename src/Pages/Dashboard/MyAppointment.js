@@ -7,7 +7,7 @@ const MyAppointment = () => {
     const [appointments, setAppointments] = useState([]);
     const [user] = useAuthState(auth);
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+        fetch(`https://boiling-badlands-47206.herokuapp.com/booking?patient=${user.email}`, {
             method: 'GET',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -24,8 +24,9 @@ const MyAppointment = () => {
     }, [user]);
     return (
         <div>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <h1 className='text-center text-3xl text-secondary mb-6'>My Appointments</h1>
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     {/* <!-- head --> */}
                     <thead>
                         <tr>
@@ -38,8 +39,8 @@ const MyAppointment = () => {
                     </thead>
                     <tbody>
                         {
-                            appointments?.map(appointment => <tr>
-                                <th>1</th>
+                            appointments?.map((appointment, index) => <tr key={appointment._id}>
+                                <th>{index + 1}</th>
                                 <td>{appointment.patientName}</td>
                                 <td>{appointment.treatment}</td>
                                 <td>{appointment.date}</td>
