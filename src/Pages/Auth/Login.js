@@ -58,7 +58,6 @@ const Login = () => {
 
     // login handler 
     const onSubmit = data => {
-        console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
     };
 

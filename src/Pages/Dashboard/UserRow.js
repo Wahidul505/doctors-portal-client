@@ -6,7 +6,7 @@ const UserRow = ({ user, index, refetch }) => {
     const handleMakeAdmin = () => {
         const proceed = window.confirm();
         if (proceed) {
-            fetch(`https://boiling-badlands-47206.herokuapp.com/user/admin/${email}`, {
+            fetch(`http://localhost:5000/user/admin/${email}`, {
                 method: 'PUT',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -34,7 +34,7 @@ const UserRow = ({ user, index, refetch }) => {
     const handleDeleteUser = () => {
         const proceed = window.confirm();
         if (proceed) {
-            fetch(`https://boiling-badlands-47206.herokuapp.com/user/admin/${email}`, {
+            fetch(`http://localhost:5000/user/admin/${email}`, {
                 method: 'DELETE',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
