@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../Shared/LoadingSpinner';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
@@ -23,7 +23,7 @@ const Payment = () => {
         return <LoadingSpinner />
     }
 
-    const { treatment, date, slot, patientName } = appointment;
+    const { treatment, date, slot, patientName, price } = appointment;
 
     return (
         <div>
@@ -36,10 +36,10 @@ const Payment = () => {
                         className='text-secondary'>{date}</span> at <span
                             className='text-secondary'>{slot}</span>
                 </h2>
-                <h2 className='text-gray-700 text-xl'>Please, Pay for your Appointment on: <span className="text-secondary">{treatment}</span></h2>
+                <h2 className='text-gray-700 text-xl'>Please, Pay <span className='text-secondary'>${price}</span> for your Appointment on: <span className="text-secondary">{treatment}</span></h2>
                 <div class="card-body">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm />
+                        <CheckoutForm appointment={appointment} />
                     </Elements>
                 </div>
             </div>
