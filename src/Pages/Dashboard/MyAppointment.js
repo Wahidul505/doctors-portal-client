@@ -8,7 +8,7 @@ const MyAppointment = () => {
     const [appointments, setAppointments] = useState([]);
     const [user] = useAuthState(auth);
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+        fetch(`https://boiling-badlands-47206.herokuapp.com/booking?patient=${user.email}`, {
             method: 'GET',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -50,8 +50,13 @@ const MyAppointment = () => {
                                 <td>
                                     {(appointment.price && !appointment.paid) &&
                                         <Link to={`/dashboard/payment/${appointment._id}`} className='btn btn-xs btn-secondary'>Pay</Link>}
-                                    {(appointment.price && appointment.paid) &&
-                                        <span className='text-success'>Paid</span>}
+                                    {
+                                        (appointment.price && appointment.paid) &&
+                                        <div>
+                                            <span className='text-success text-xl'>Paid</span>
+                                            <p className='text-gray-700 text-sm'>Transaction Id: <span className='text-secondary'>{appointment.transactionId}</span></p>
+                                        </div>
+                                    }
                                 </td>
                             </tr>)
                         }

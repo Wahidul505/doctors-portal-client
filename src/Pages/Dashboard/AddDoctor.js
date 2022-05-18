@@ -8,7 +8,7 @@ import LoadingSpinner from '../Shared/LoadingSpinner';
 const AddDoctor = () => {
     const photoApiKey = 'bc069d2d932f220983e28cf3794a6fcd';
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-    const { data: treatments, isLoading } = useQuery('treatments', () => fetch('http://localhost:5000/treatment')
+    const { data: treatments, isLoading } = useQuery('treatments', () => fetch('https://boiling-badlands-47206.herokuapp.com/treatment')
         .then(res => res.json()));
 
 
@@ -30,7 +30,7 @@ const AddDoctor = () => {
                     email: data.email,
                     specialty: data.specialty
                 }
-                fetch('http://localhost:5000/doctor', {
+                fetch('https://boiling-badlands-47206.herokuapp.com/doctor', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',

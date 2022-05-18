@@ -23,7 +23,7 @@ const BookingModal = ({ bookingTreatment, setBookingTreatment, date, refetch }) 
             phone
         }
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://boiling-badlands-47206.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

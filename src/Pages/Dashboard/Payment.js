@@ -10,8 +10,8 @@ const stripePromise = loadStripe('pk_test_51L0f8BK96S4Dx2sqbNrb8CtiStAD5MvRtuait
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/booking/${id}`;
-    const { data: appointment, isLoading } = useQuery(['booking', id], () => fetch(url, {
+    const url = `https://boiling-badlands-47206.herokuapp.com/booking/${id}`;
+    const { data: appointment, isLoading, refetch } = useQuery(['booking', id], () => fetch(url, {
         method: 'GET',
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -27,7 +27,7 @@ const Payment = () => {
 
     return (
         <div>
-            <div class="card lg:card-side bg-base-100 shadow-xl p-4">
+            <div className="card lg:card-side bg-base-100 shadow-xl p-4">
                 <h1 className='text-primary text-2xl'>Hello {patientName}</h1>
                 <hr />
                 <h2 className='text-xl text-gray-700 my-2'>Your Appointment fixed on:
@@ -37,9 +37,12 @@ const Payment = () => {
                             className='text-secondary'>{slot}</span>
                 </h2>
                 <h2 className='text-gray-700 text-xl'>Please, Pay <span className='text-secondary'>${price}</span> for your Appointment on: <span className="text-secondary">{treatment}</span></h2>
-                <div class="card-body">
+                <div className="card-body">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm appointment={appointment} />
+                        <CheckoutForm
+                            appointment={appointment}
+                            refetch={refetch}
+                        />
                     </Elements>
                 </div>
             </div>
