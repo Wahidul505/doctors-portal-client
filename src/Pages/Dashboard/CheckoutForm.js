@@ -82,9 +82,9 @@ const CheckoutForm = ({ appointment, refetch }) => {
                 setDisplayError('');
                 setTransactionId(paymentIntent.id);
                 setDisplaySuccess('Congrats! Your Payment is Completed');
+                refetch();
             });
         }
-        refetch();
     };
 
 

@@ -18,7 +18,7 @@ const AddDoctor = () => {
         formData.append('image', photo);
         const url = `https://api.imgbb.com/1/upload?key=${photoApiKey}`;
         
-        // parent fetch method for posting an image to hosting in imgbb then via series calling second/ child fetch method for posting the doctors data with the hosted image in database through server 
+        // parent fetch method for posting an image to hosting in imgbb then via series calling second/child fetch method for posting the doctors data with the hosted image in database through server 
         fetch(url, {
             method: 'POST',
             body: formData
