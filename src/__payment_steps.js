@@ -6,6 +6,7 @@
  * 5. Create CheckoutForm Component with CardElement, useStripe & useElements inside it.
  * 6. Get the CardElement info using element.getElement(CardElement).
  * 7. Get Credit card info(paymentMethod/error) and display error.message if getting any error.
+ * #. For documentation: go to react strip js github > examples > hooks > 0-Card-Minimal.js
  * -----------------------------------------------------------------
  * 8. Install strip in server side.
  * 9. Get the payment secret key from stripe dashboard and store it in server > .env file.
